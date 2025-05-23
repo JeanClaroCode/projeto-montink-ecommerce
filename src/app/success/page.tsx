@@ -4,15 +4,14 @@ import { stripe } from '@/lib/stripe'
 import { redirect } from 'next/navigation'
 import Stripe from 'stripe'
 
-type Props = {
-  searchParams: {
-    session_id?: string
-    [key: string]: string | string[] | undefined
-  }
-}
-
-export default async function Page({ searchParams }: Props) {
-  const sessionId = searchParams.session_id
+export default async function SuccessPage({
+  searchParams,
+}: {
+  searchParams: { session_id?: string | string[] }
+}) {
+  const sessionId = Array.isArray(searchParams.session_id)
+    ? searchParams.session_id[0]
+    : searchParams.session_id
 
   if (!sessionId) {
     redirect('/?error=missing_session')
