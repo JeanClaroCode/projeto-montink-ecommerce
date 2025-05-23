@@ -3,9 +3,15 @@ import SuccessClient from '@/components/SuccessClient'
 import { stripe } from '@/lib/stripe'
 import { redirect } from 'next/navigation'
 import Stripe from 'stripe'
-import { PageProps } from 'next'
 
-export default async function Page({ searchParams }: PageProps) {
+type Props = {
+  searchParams: {
+    session_id?: string
+    [key: string]: string | string[] | undefined
+  }
+}
+
+export default async function Page({ searchParams }: Props) {
   const sessionId = searchParams.session_id
 
   if (!sessionId) {
