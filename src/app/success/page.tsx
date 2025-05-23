@@ -7,12 +7,9 @@ import Stripe from 'stripe'
 export default async function SuccessPage({
   searchParams,
 }: {
-  searchParams: { session_id?: string | string[] }
+  searchParams: Promise<{ session_id: string }>
 }) {
-  const sessionId = Array.isArray(searchParams.session_id)
-    ? searchParams.session_id[0]
-    : searchParams.session_id
-
+  const { session_id: sessionId } = await searchParams
   if (!sessionId) {
     redirect('/?error=missing_session')
   }
