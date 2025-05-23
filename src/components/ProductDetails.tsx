@@ -4,7 +4,6 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 
-import { stripe } from '@/lib/stripe'
 import axios from 'axios'
 
 const sizes = ['P', 'M', 'G', 'GG']
