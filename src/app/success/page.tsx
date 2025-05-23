@@ -4,14 +4,20 @@ import { stripe } from '@/lib/stripe'
 import { redirect } from 'next/navigation'
 import Stripe from 'stripe'
 
+import { Metadata } from 'next'
+
 type Props = {
-  searchParams: {
-    session_id?: string
-  }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
+export const metadata: Metadata = {
+  title: 'Success',
 }
 
 export default async function SuccessPage({ searchParams }: Props) {
-  const sessionId = searchParams.session_id
+  const sessionId = Array.isArray(searchParams.session_id)
+    ? searchParams.session_id[0]
+    : searchParams.session_id
 
   if (!sessionId) {
     redirect('/?error=missing_session')
