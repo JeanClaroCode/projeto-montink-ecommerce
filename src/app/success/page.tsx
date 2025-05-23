@@ -4,6 +4,7 @@ import SuccessClient from '@/components/SuccessClient'
 import { stripe } from '@/lib/stripe'
 import { redirect } from 'next/navigation'
 import Stripe from 'stripe'
+import { Suspense } from 'react'
 
 export default async function SuccessPage({
   params,
@@ -30,12 +31,14 @@ export default async function SuccessPage({
   const productImage = product.images?.[0] ?? '/default.png'
 
   return (
-    <SuccessClient
-      customerName={customerName}
-      product={{
-        name: productName,
-        imageUrl: productImage,
-      }}
-    />
+    <Suspense fallback={<div>Carregando...</div>}>
+      <SuccessClient
+        customerName={customerName}
+        product={{
+          name: productName,
+          imageUrl: productImage,
+        }}
+      />
+    </Suspense>
   )
 }
