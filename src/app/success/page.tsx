@@ -4,11 +4,13 @@ import { stripe } from '@/lib/stripe'
 import { redirect } from 'next/navigation'
 import Stripe from 'stripe'
 
-export default async function SuccessPage({
-  searchParams,
-}: {
-  searchParams: { session_id?: string }
-}) {
+type Props = {
+  searchParams: {
+    session_id?: string
+  }
+}
+
+export default async function SuccessPage({ searchParams }: Props) {
   const sessionId = searchParams.session_id
 
   if (!sessionId) {
