@@ -1,17 +1,19 @@
-/* eslint-disable camelcase */
-// app/success/page.tsx
+import { Metadata } from 'next'
 import SuccessClient from '@/components/SuccessClient'
 import { stripe } from '@/lib/stripe'
 import { redirect } from 'next/navigation'
 import Stripe from 'stripe'
 
-export default async function SuccessPage({
-  params,
-}: {
-  params: Promise<{ session_id: string }>
-}) {
-  const { session_id } = await params
-  const sessionId = session_id
+export const metadata: Metadata = {
+  title: 'Compra Realizada',
+}
+
+interface PageProps {
+  searchParams: { session_id?: string }
+}
+
+export default async function SuccessPage({ searchParams }: PageProps) {
+  const sessionId = searchParams.session_id
   console.log('tipo: ' + typeof sessionId)
   console.log('console' + sessionId)
 
