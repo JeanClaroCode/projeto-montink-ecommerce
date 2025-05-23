@@ -1,22 +1,19 @@
-import ProductDetails from '@/components/ProductDetails'
-import ProductImages from '@/components/ProductImages'
-import ShowToast from '@/components/ShowToast'
+import ProductPageClient from '@/components/ProductPageClient'
 import { stripe } from '@/lib/stripe'
+import { Suspense } from 'react'
 import Stripe from 'stripe'
 
-export default async function ProductPage() {
+export default async function Page() {
   const response = await stripe.products.list({
     expand: ['data.default_price'],
   })
 
   const stripeProductsData = response.data
 
-  const productsImgs = stripeProductsData.map((product) => {
-    return {
-      id: product.id,
-      imageUrl: product.images[0],
-    }
-  })
+  const productsImgs = stripeProductsData.map((product) => ({
+    id: product.id,
+    imageUrl: product.images[0],
+  }))
 
   const productsInfo = response.data.map((product) => {
     const price = product.default_price as Stripe.Price
@@ -35,16 +32,11 @@ export default async function ProductPage() {
   })
 
   return (
-    <>
-      <ShowToast />
-      <main className="flex flex-col md:flex-row gap-8 p-6 max-w-6xl mx-auto">
-        <div className="md:w-1/2">
-          <ProductImages productsImgs={productsImgs} />
-        </div>
-        <div className="md:w-1/2">
-          <ProductDetails productsInfo={productsInfo} />
-        </div>
-      </main>
-    </>
+    <Suspense fallback={<p>Carregando...</p>}>
+      <ProductPageClient
+        productsImgs={productsImgs}
+        productsInfo={productsInfo}
+      />
+    </Suspense>
   )
 }
