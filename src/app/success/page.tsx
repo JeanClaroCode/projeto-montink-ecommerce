@@ -3,21 +3,10 @@ import SuccessClient from '@/components/SuccessClient'
 import { stripe } from '@/lib/stripe'
 import { redirect } from 'next/navigation'
 import Stripe from 'stripe'
+import { PageProps } from 'next'
 
-import { Metadata } from 'next'
-
-type Props = {
-  searchParams: { [key: string]: string | string[] | undefined }
-}
-
-export const metadata: Metadata = {
-  title: 'Success',
-}
-
-export default async function SuccessPage({ searchParams }: Props) {
-  const sessionId = Array.isArray(searchParams.session_id)
-    ? searchParams.session_id[0]
-    : searchParams.session_id
+export default async function Page({ searchParams }: PageProps) {
+  const sessionId = searchParams.session_id
 
   if (!sessionId) {
     redirect('/?error=missing_session')
