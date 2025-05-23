@@ -1,8 +1,7 @@
 # 🕹️ Loja paiN Gaming
 
 Loja virtual inspirada na marca da equipe paiN Gaming, construída com tecnologias modernas como **Next.js**, **TypeScript**, **TailwindCSS** e o gateway de pagamento **Stripe**.
-# Deploy
-![Deploy](link)
+### [Deploy](https://projeto-montink-ecommerce.vercel.app/)
 ## 🖼️ Preview
 
 ![Demonstração do projeto](https://imgur.com/oZpOS2M.gif)
