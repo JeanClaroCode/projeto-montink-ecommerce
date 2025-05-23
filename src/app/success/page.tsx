@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 // app/success/page.tsx
 import SuccessClient from '@/components/SuccessClient'
 import { stripe } from '@/lib/stripe'
@@ -7,9 +8,10 @@ import Stripe from 'stripe'
 export default async function SuccessPage({
   params,
 }: {
-  params: { session_id: string }
+  params: Promise<{ session_id: string }>
 }) {
-  const sessionId = params.session_id
+  const { session_id } = await params
+  const sessionId = session_id
   console.log('tipo: ' + typeof sessionId)
   console.log('console' + sessionId)
 
