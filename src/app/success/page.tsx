@@ -14,8 +14,6 @@ interface PageProps {
 
 export default async function SuccessPage({ searchParams }: PageProps) {
   const sessionId = searchParams.session_id
-  console.log('tipo: ' + typeof sessionId)
-  console.log('console' + sessionId)
 
   if (!sessionId) {
     redirect('/?error=missing_session')
